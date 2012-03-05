@@ -1,0 +1,34 @@
+{block content}
+
+<h2>Dashboard <small>vítej v mém úžasném CMSku</small></h2>
+
+<hr>
+
+<h3>Rychlé menu</h3>
+<div class="well">
+	<a n:href="Article:add" class="btn btn-large btn-info">Nový článek</a>
+	<a n:href="Page:add" class="btn btn-large btn-info">Nová stránka</a>
+	<a n:href="User:add" class="btn btn-large btn-info">Nový uživatel</a>
+</div>
+
+<h3>Poslední změny</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Kde?</th>
+			<th>Co?</th>
+			<th>Kdo?</th>
+			<th>Kdy?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr n:foreach="$logger as $action">
+			<td><span class="label">{$action->action}</span></td>
+			<td>{$action->presenter}</td>
+			<td>{$action->message}</td>
+			<td>{$action->user->email}</td>
+			<td>{$action->timestamp|timeAgoInWords}</td>
+		</tr>
+	</tbody>
+</table>

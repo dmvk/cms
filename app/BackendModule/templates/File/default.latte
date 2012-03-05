@@ -1,0 +1,48 @@
+{block content}
+
+<h2>File Manager <small>(alfa verze ... nejde strasne moc veci)</small></h2>
+
+<hr>
+
+<div class="well">
+	<a href="#" class="btn btn-large">Nahrát soubor</a>
+	<a href="#" class="btn btn-large">Vytvořit složku</a>
+</div>
+
+
+{snippet browser}
+
+<ul class="breadcrumb" n:inner-foreach="$breadcrumbs as $key => $value">
+	{if !$iterator->isLast()}
+	<li>
+		<a href="{link File:, path => $key}">{$value}</a>
+		<span class="divider">/</span>
+	</li>
+	{else}
+	<li class="active">
+        {$value}
+	</li>
+	{/if}
+</ul>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>File Name</th>
+			<th>Available actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr n:foreach="$files as $file">
+			{var $filePath = trim($path . '/' . $file->getFilename(), '/')}
+			<td>
+				<a n:tag-if="$file->isDir()" n:href="this, path => $filePath" class="ajax">
+					{$file->getFileName()}
+				</a>
+			<td>
+				<a n:href="delete!, path => $filePath" class="btn error">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+{/snippet}

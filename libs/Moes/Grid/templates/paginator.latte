@@ -1,0 +1,25 @@
+<div n:if="$paginator->pageCount > 1" class="pagination">
+	<ul>
+		{if $paginator->isFirst()}
+		<li class="prev disabled">
+			<a n:href="this">&larr; Previous</a>
+		</li>
+		{else}
+		<li class="prev">
+			<a n:href="this, 'page' => $paginator->page - 1">&larr; Previous</a>
+		</li>
+		{/if}
+		<li n:foreach="$steps as $step" n:class="$step == $paginator->page ? active">
+			<a n:href="this, 'page' => $step">{$step}</a>
+		</li>
+		{if $paginator->isLast()}
+		<li class="next disabled">
+			<a n:href="this">Next &rarr;</a>
+		</li>
+		{else}
+		<li class="next">
+			<a n:href="this, 'page' => $paginator->page + 1">Next &rarr;</a>
+		</li>
+		{/if}
+	</ul>
+</div>

@@ -1,0 +1,52 @@
+{block content}
+
+<p class="lead">
+	Vytvoření nové stránky
+</p>
+{form form}
+<div id="accordion" class="accordion">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a href="#basic" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle">
+				Hlavní
+			</a>
+		</div>
+		<div id="basic" class="accordion-body collapse">
+			<div class="accordion-inner">
+				<div class="control-group">
+					{label title /}
+					<div class="controls">
+						{input title}
+					</div>
+				</div>
+				<div class="control-group">
+					{label text /}
+					<div class="controls">
+						{input text}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a href="#settings" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle">
+				Settings
+			</a>
+		</div>
+		<div id="settings" class="accordion-body collapse">
+			<div class="accordion-inner">
+				<div class="control-group">
+					{label comments /}
+					<div class="controls">
+						{input comments} Enable comments on this page??
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="form-actions">
+	{input save, class => 'btn btn-primary'}
+</div>
+{/form}

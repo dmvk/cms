@@ -1,0 +1,10 @@
+<h3>Komentáře</h3>
+
+{if $empty}
+{else}
+	{foreach $comments as $comment}	
+		{control comment-$comment->id $comment}
+	{/foreach}
+{/if}
+
+{control commentForm}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<meta name="description" content="Nette Framework web application skeleton">
+		<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+		<title>Moe's backend{ifset $title} - {$title}{/ifset}</title>
+
+		{control css}
+
+		<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
+
+		{control js}
+
+		<script type="text/javascript">
+		$(document).ready(function() {
+			mySettings['previewPath'] = {link preview!}
+			$("textarea").markItUp(mySettings)
+			
+			$("a.ajax").live('click', function (e) {
+				e.preventDefault();
+				$.get(this.href);
+			})
+		})
+		</script>
+		{block head}{/block}
+
+		<style>
+			body {
+				margin-top: 60px;
+				margin-bottom: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="{link :Frontend:Homepage:}">Moe's</a>
+
+					<ul class="nav">
+						<li {ifCurrent Dashboard:*}class="active"{/ifCurrent}>
+							<a href="{link Dashboard:}">Nástěnka</a>
+						</li>
+						<li {ifCurrent Page:*}class="active"{/ifCurrent}>
+							<a href="{link Page:}">Stránky</a>
+						</li>
+						<li {ifCurrent Article:*}class="active"{/ifCurrent}>
+							<a href="{link Article:}">Články</a>
+						</li>
+						<li {ifCurrent User:*}class="active"{/ifCurrent}>
+							<a href="{link User:}">Uživatelé</a>
+						</li>
+						<li {ifCurrent File:*}class="active"{/ifCurrent}>
+							<a href="{link File:}">Soubory</a>
+						</li>
+						<li class="divider-vertical"></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Komponenty <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Menu</a>
+								</li>
+							</ul>
+
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								{$identity->email} <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{link Sign:out}">Profil</a>
+									<a href="{link Sign:out}">Změna hesla</a>
+									<a href="{link Sign:out}">Odhlásit</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container main">
+
+			{snippet flash}
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+				<a class="close" data-dismiss="alert">×</a>
+				{$flash->message}
+			</div>
+			{/snippet}
+			
+			{include #content}
+
+		</div>
+		
+		<footer>
+			<div class="container">
+				<p>&copy; David Morávek 2011, Powered by <a href="http://nette.org">Nette Framework</a>, <a href="http://doctrine-project.org">Doctrine 2</a> and <a href="http://twitter.com/bootstrap">Bootstrap</a>.</p>
+			</div>
+		</footer>
+	</body>
+</html>

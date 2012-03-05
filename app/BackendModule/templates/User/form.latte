@@ -1,0 +1,34 @@
+{block content}
+
+<h2>User Form <small>vytváření a editace uživatelů</small></h2>
+
+<hr>
+
+{form userForm}
+
+<div>
+	{input save, class => 'btn btn-large'}
+</div>
+
+<hr>
+
+<div class="control-group">
+	{label email /}
+	<div class="controls">
+		{input email, class => 'span6'}
+	</div>
+</div>
+<div class="control-group">
+	{label password /}
+	<div class="controls">
+		{input password, class => 'span6'}
+	</div>
+</div>
+<div class="control-group">
+	{label role /}
+	<div class="controls">
+		{input role, class => 'span6'}
+	</div>
+</div>
+
+{/form}

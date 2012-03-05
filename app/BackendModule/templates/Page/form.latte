@@ -1,0 +1,34 @@
+{block content}
+
+<h2>Page Form <small>tvorba a editace stránek</small></h2>
+
+<hr>
+
+{form pageForm}
+
+<div>
+	{input save, class => 'btn btn-large'}
+	{input cancel, class => 'btn btn-large btn-danger'}
+</div>
+
+<hr>
+
+<div class="control-group">
+	{label title /}
+	<div class="controls">
+		{input title, class => 'span6'}
+	</div>
+</div>
+<div class="control-group">
+	{label slug /}
+	<div class="controls">
+		{input slug, class => 'span6'}
+	</div>
+</div>
+<div class="control-group">
+	{label text /}
+	<div class="controls">
+		{input text, class => 'span9'}
+	</div>
+</div>
+{/form}

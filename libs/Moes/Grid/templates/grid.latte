@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th n:foreach="$control['columns']->components as $column">
+				{$column->label}
+			</th>
+			<th n:if="$control->hasActions()">
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr n:foreach="$model->items as $item">
+			<td n:foreach="$control['columns']->components as $column">
+				{control $column:cell $item}
+			</td>
+			<td n:if="$control->hasActions()">
+				{foreach $control['actions']->components as $button}{control $button $item} {/foreach}
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+{if $control->hasPaginator()}
+	{control paginator}
+{/if}

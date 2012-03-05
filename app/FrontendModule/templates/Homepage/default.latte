@@ -1,0 +1,19 @@
+
+{block content}
+
+<div class="row" style="margin-bottom: 20px;">
+	<div class="span9">
+		<h2>
+			Přihlašovací údaje (email: admin@moes.cz, heslo: adminadmin)
+		</h2>
+	</div>
+	<div class="span3 center">
+		<a href="{link :Backend:Dashboard:}" class="btn btn-huge btn-success">DEMO ADMINISTRACE</a>
+	</div>
+</div>
+
+<div n:foreach="$articles as $article" class="article">
+	<h2>{$article->title}</h2>
+	<p>{!$article->introduction|texy}</p>
+	<a n:href="Article:show, $article->slug" class="btn btn-info">Celý článek</a>
+</div>

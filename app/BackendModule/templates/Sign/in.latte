@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<meta name="description" content="Nette Framework web application skeleton">
+		<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+		<title>Moe's CMS</title>
+
+		{control css}
+
+		<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
+
+		{control js}
+		
+		<style type="text/css">
+			body {
+				margin-top: 100px;
+				background-color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="container">
+
+			<div n:foreach="$flashes as $flash" class="alert {$flash->type}">
+				<a class="close" data-dismiss="alert">×</a>
+				{$flash->message}
+			</div>
+
+			<div class="hero">
+				<h1>Vítejte v Moe's CMS</h1>
+				<p>
+					jednoduchém redakčním systému, postaveném na <a href="#">Nette Frameworku</a>, <a href="#">Doctrine 2</a> and <a href="#">Bootstrapu</a>
+				</p>
+				<p>
+					<a href="#login" class="btn btn-large" data-toggle="modal">Přihlásit se</a>
+					<a href="{$facebook}" class="btn btn-large btn-info">Přihlásit přes Facebook</a>
+				</p>
+			</div>
+		</div>
+		
+		{form signInForm, class => 'form-horizontal'}
+		<div id="login" class="modal hide fade">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Login</h3>
+			</div>
+			<div class="modal-body">
+				<div class="control-group">
+					{label username /}
+					<div class="controls">
+						{input username}
+					</div>
+				</div>
+				<div class="control-group">
+					{label password /}
+					<div class="controls">
+						{input password}
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<label class="checkbox">
+							{input remember}
+							Remember me on this computer
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				{input send, class => 'btn btn-large btn-info'}
+			</div>
+		</div>
+		{/form}
+	</body>
+</html>
