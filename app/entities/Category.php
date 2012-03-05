@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Moes\Doctrine\Entities\IdentifiedEntity;
 
 /**
- * @Entity 
+ * @Entity
+ * @Table(name="categories")
  */
 class Category extends IdentifiedEntity
 {

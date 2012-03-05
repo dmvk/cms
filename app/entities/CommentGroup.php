@@ -7,6 +7,7 @@ use Moes\Doctrine\Entities\IdentifiedEntity;
 
 /**
  * @Entity 
+ * @Table(name="comments_groups")
  */
 class CommentGroup extends IdentifiedEntity
 {

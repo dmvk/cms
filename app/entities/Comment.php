@@ -5,7 +5,8 @@ namespace Model;
 use Moes\Doctrine\Entities\IdentifiedEntity;
 
 /**
- * @Entity 
+ * @Entity
+ * @Table(name="comments")
  */
 class Comment extends IdentifiedEntity
 {

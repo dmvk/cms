@@ -6,7 +6,8 @@ use Moes\Doctrine\Entities\IdentifiedEntity;
 use Moes\Security\Identity;
 
 /**
- * @Entity()
+ * @Entity
+ * @Table(name="pages")
  * @HasLifecycleCallbacks
  */
 class Page extends IdentifiedEntity

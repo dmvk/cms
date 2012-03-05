@@ -7,6 +7,7 @@ use Moes\Security\Identity;
 
 /**
  * @Entity(repositoryClass="Model\ArticleRepository")
+ * @Table(name="articles")
  * @HasLifecycleCallbacks
  */
 class Article extends IdentifiedEntity
