@@ -38,7 +38,7 @@ class UserPresenter extends BasePresenter
 
 	public function createComponentUserGrid()
 	{
-		return new UserGrid($this->context->repository->user);
+		return $this->context->createUserGrid();
 	}
 
 }
