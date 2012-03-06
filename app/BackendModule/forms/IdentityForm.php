@@ -2,12 +2,14 @@
 
 namespace BackendModule;
 
+use Moes\Security\IdentityRepository;
+
 class IdentityForm extends \Moes\Doctrine\EntityForm
 {
 
 	private $roles;
 
-	public function __construct($repository, $roles)
+	public function __construct(IdentityRepository $repository, $roles)
 	{
 		parent::__construct($repository);
 		$this->roles = $roles;
@@ -15,29 +17,45 @@ class IdentityForm extends \Moes\Doctrine\EntityForm
 
 	protected function init()
 	{
-		$this->addText("email", "E-mail")->addRule(self::EMAIL)->setRequired();
-		$this->addPassword("password", "Password");
+		$this->addText("email", "Email")
+			->setRequired()
+			->addRule(self::EMAIL);
 
-		$this->addEntitySelect('role', 'Role', $this->roles);
+		$this->addEntitySelect('role', 'Role', $this->roles)
+			->setRequired();
 
-//		$this->addPassword("passwordre", "Password-re")
-//				->addRule(self::EQUAL, "Hesla se neshoduji", $this["password"])
-//				->setRequired();
+		$this->addPassword("password", "Heslo")
+			->addCondition(self::FILLED)
+			->addRule(self::MIN_LENGTH, "Heslo musí být dlouhé alespoň %d znaků.", 6);			
+
+		$this->addPassword("passwordre", "Heslo znovu")
+				->addRule(self::EQUAL, "Hesla se neshoduji", $this["password"])
+				->addConditionOn($this["password"], self::FILLED);
 
 		$this->addSubmit("save", "Uložit");
 	}
 
 	public function process($form)
 	{
+		$values = (array) $form->values;
+		
+		// @todo tohle by melo umet setData
+
+		unset($values["passwordre"]);
+		
+		if($values["password"] === NULL) {
+			unset($values["password"]);
+		}
+			
 		if ($form->entity) {
 			// update
 			$entity = $form->entity;
-			$this->repository->setData($entity, $form->values);
+			$this->repository->setData($entity, $values);
 
 			$this->presenter->logUpdateAction($entity->email);
 			$this->presenter->flashMessage("Uživatel byl upraven", "success");
 		} else {
-			$entity = $this->repository->createNew((array) $form->values);
+			$entity = $this->repository->createNew($values);
 
 			$this->presenter->logCreateAction($entity->email);
 			$this->presenter->flashMessage("Uživatel byl vytvořen", "success");

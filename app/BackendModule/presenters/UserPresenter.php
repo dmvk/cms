@@ -22,6 +22,7 @@ class UserPresenter extends BasePresenter
 
 	public function actionAdd()
 	{
+		$this["identityForm-password"]->setRequired();
 		$this->view = "form";
 	}
 

@@ -16,7 +16,7 @@ components:
 			class: BackendModule\PageForm(@model.pages, @user::getIdentity())
 
 		identityForm:
-			class: BackendModule\IdentityForm(@model.articles, @model.roles::findAll())
+			class: BackendModule\IdentityForm(@model.identities, @model.roles::findAll())
 			
 		# grids
 
