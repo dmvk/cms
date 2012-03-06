@@ -29,7 +29,7 @@ class ArticleRepository extends EntityRepository
 	{
 		$article = $this->getEntityName();
 
-		return $this->createQuery("SELECT a FROM $article a WHERE a.status = :status ORDER BY a.createdAt")
+		return $this->createQuery("SELECT a FROM $article a WHERE a.status = :status ORDER BY a.createdAt DESC")
 			->setParameter("status", Article::PUBLISHED)
 			->getResult();
 	}
