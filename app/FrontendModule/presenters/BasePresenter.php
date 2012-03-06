@@ -13,12 +13,12 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 
 	protected function createComponentCss()
 	{
-		return $this->context->createFrontendCss();
+		return $this->context->components->createFrontendCss();
 	}
 
 	protected function createComponentJs()
 	{
-		return $this->context->createFrontendJs();
+		return $this->context->components->createFrontendJs();
 	}
 
 }

@@ -12,7 +12,7 @@ class PagePresenter extends BasePresenter
 
 	private function loadPage($id)
 	{
-		$page = $this->context->model->pages->find($id, $lockMode);
+		$page = $this->context->model->pages->find($id);
 
 		if (!$page)
 			throw new \Nette\Application\BadRequestException();

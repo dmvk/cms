@@ -12,6 +12,7 @@ class PagePresenter extends BasePresenter
 		if (!$page)
 			throw new \Nette\Application\BadRequestException();
 
+		$this->template->title = $page->title;
 		$this->template->page = $page;
 	}
 }

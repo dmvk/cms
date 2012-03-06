@@ -12,6 +12,7 @@ class ArticlePresenter extends BasePresenter
 		if (!$article)
 			throw new \Nette\Application\BadRequestException();
 
+		$this->template->title = $article->title;
 		$this->template->article = $article;
 	}
 

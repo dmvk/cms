@@ -1,9 +1,11 @@
 {block content}
 
-<h1>{$article->title}</h1>
+<article>
+	<h1>{$article->title}</h1>
 
-<div class="well">
-	{!$article->introduction|texy}
-</div>
+	<div class="well">
+		{!$article->introduction|texy}
+	</div>
 
-{!$article->text|texy}
+	{!$article->text|texy}
+</article>

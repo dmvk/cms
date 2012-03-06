@@ -18,7 +18,7 @@ model:
 		pages:
 			class: Moes\Doctrine\EntityRepository
 			factory: @doctrine.entityManager::getRepository
-			arguments: [Model\Article]
+			arguments: [Model\Page]
 
 		roles:
 			class: Moes\Doctrine\EntityRepository
