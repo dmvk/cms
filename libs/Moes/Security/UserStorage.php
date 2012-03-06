@@ -2,7 +2,6 @@
 
 namespace Moes\Security;
 
-use Moes\Doctrine\EntityRepository;
 use Nette\Http\Session;
 
 class UserStorage extends \Nette\Http\UserStorage
@@ -14,11 +13,11 @@ class UserStorage extends \Nette\Http\UserStorage
 	private $identity = NULL;
 
 	/**
-	 * @var EntityRepository
+	 * @var IdentityRepository
 	 */
 	private $repository;
 
-	public function __construct(Session $sessionHandler, EntityRepository $repository)
+	public function __construct(Session $sessionHandler, IdentityRepository $repository)
 	{
 		parent::__construct($sessionHandler);
 		$this->repository = $repository;

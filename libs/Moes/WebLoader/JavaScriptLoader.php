@@ -2,12 +2,13 @@
 
 namespace Moes\WebLoader;
 
+use Nette\DI\Container;
 use WebLoader;
 
 abstract class JavaScriptLoader extends WebLoader\Nette\JavaScriptLoader
 {
 
-	public function __construct($context)
+	public function __construct(Container $context)
 	{
 		$wwwDir = $context->parameters['wwwDir'];
 		$basePath = $context->httpRequest->url->basePath;

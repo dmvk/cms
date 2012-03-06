@@ -10,7 +10,7 @@ class CategoryPresenter extends BasePresenter
 
 	private function loadCategory($id)
 	{
-		$category = $this->context->repository->category->find($id);
+		$category = $this->context->model->categories->find($id);
 
 		if (!$category)
 			throw new \Nette\Application\BadRequestException();
@@ -31,7 +31,7 @@ class CategoryPresenter extends BasePresenter
 
 	public function handleDelete($id)
 	{
-		$this->context->repository->category->delete($this->loadCategory($id));
+		$this->context->model->categories->delete($this->loadCategory($id));
 
 		$this->flashMessage('Kategorie byla smazána');
 		$this->redirect('this');
@@ -39,12 +39,12 @@ class CategoryPresenter extends BasePresenter
 
 	public function createComponentCategoryForm()
 	{
-		return $this->context->createCategoryForm();
+		return $this->context->components->createCategoryForm();
 	}
 
 	public function createComponentCategoryGrid()
 	{
-		return $this->context->createCategoryGrid();
+		return $this->context->components->createCategoryGrid();
 	}
 
 }

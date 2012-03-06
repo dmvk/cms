@@ -20,12 +20,12 @@ abstract class BasePresenter extends Presenter
 
 	public function createComponentCss()
 	{
-		return $this->context->createBackendCss();
+		return $this->context->components->createBackendCss();
 	}
 
 	public function createComponentJs($name)
 	{
-		return $this->context->createBackendJs();
+		return $this->context->components->createBackendJs();
 	}
 
 }

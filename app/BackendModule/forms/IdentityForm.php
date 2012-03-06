@@ -2,7 +2,7 @@
 
 namespace BackendModule;
 
-class UserForm extends \Moes\Doctrine\EntityForm
+class IdentityForm extends \Moes\Doctrine\EntityForm
 {
 
 	private $roles;
@@ -15,11 +15,11 @@ class UserForm extends \Moes\Doctrine\EntityForm
 
 	protected function init()
 	{
-//		$this->addText("username", "Username")->setRequired();
 		$this->addText("email", "E-mail")->addRule(self::EMAIL)->setRequired();
-		$this->addPassword("password", "Password")->setRequired();
+		$this->addPassword("password", "Password");
 
-		$this->addEntitySelect('role', 'Role', $this->roles)->setPrompt('------');;
+		$this->addEntitySelect('role', 'Role', $this->roles);
+
 //		$this->addPassword("passwordre", "Password-re")
 //				->addRule(self::EQUAL, "Hesla se neshoduji", $this["password"])
 //				->setRequired();

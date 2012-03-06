@@ -7,7 +7,7 @@ class ArticlePresenter extends BasePresenter
 
 	public function actionShow($slug)
 	{
-		$article = $this->context->repository->article->findOneBySlug($slug);
+		$article = $this->context->model->articles->findOneBySlug($slug);
 
 		if (!$article)
 			throw new \Nette\Application\BadRequestException();

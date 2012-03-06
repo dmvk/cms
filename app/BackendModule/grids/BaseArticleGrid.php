@@ -2,10 +2,16 @@
 
 namespace BackendModule;
 
+use Model\ArticleRepository;
 use Moes\Grid\Grid;
 
 abstract class BaseArticleGrid extends Grid
 {
+	
+	public function __construct(ArticleRepository $repository)
+	{
+		parent::__construct($repository);
+	}
 
 	protected function addColumns()
 	{

@@ -2,14 +2,15 @@
 
 namespace BackendModule;
 
-use Moes\Doctrine\EntityRepository;
 use Moes\Security\Identity;
+use Moes\Security\IdentityRepository;
+use Nette\Security\User;
 
 class ChangePasswordForm extends \Moes\Form\BaseForm
 {
 
 	/**
-	 * @var EntityRepository
+	 * @var IdentityRepository
 	 */
 	private $repository;
 
@@ -18,11 +19,11 @@ class ChangePasswordForm extends \Moes\Form\BaseForm
 	 */
 	private $identity;
 
-	public function __construct(EntityRepository $repository, Identity $identity)
+	public function __construct(IdentityRepository $repository, User $user)
 	{
 		parent::__construct();
 		$this->repository = $repository;
-		$this->identity = $identity;
+		$this->identity = $user->identity;
 	}
 
 	protected function init()

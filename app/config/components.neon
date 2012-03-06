@@ -1,0 +1,50 @@
+components:
+	factories:
+		articleForm:
+			class: BackendModule\ArticleForm(@model.articles, @user::getIdentity(), @model.categories::findAll())
+
+		categoryForm:
+			class: BackendModule\CategoryForm(@model.categories)
+
+		changePasswordForm:
+			class: BackendModule\ChangePasswordForm
+
+		loginForm:
+			class: BackendModule\LoginForm(@user)
+
+		pageForm:
+			class: BackendModule\PageForm(@model.pages, @user::getIdentity())
+
+		identityForm:
+			class: BackendModule\IdentityForm(@model.articles, @model.roles::findAll())
+			
+		# grids
+
+		articleGrid:
+			class: BackendModule\ArticleGrid
+
+		articleTrashGrid:
+			class: BackendModule\ArticleTrashGrid
+
+		categoryGrid:
+			class: BackendModule\CategoryGrid(@model.categories)
+
+		pageGrid:
+			class: BackendModule\PageGrid(@model.pages)
+
+		userGrid:
+			class: BackendModule\UserGrid
+
+		# webloaders
+
+		backendCss:
+			class: BackendModule\BackendCss
+
+		backendJs:
+			class: BackendModule\BackendJs
+
+		frontendCss:
+			class: FrontendModule\FrontendCss
+
+		frontendJs:
+			class: FrontendModule\FrontendJs

@@ -30,7 +30,8 @@ $configurator->createRobotLoader()
 $configurator->onCompile[] = function($cfg, $compiler) {	
 	$compiler->addExtension("doctrine", new Moes\Config\Extensions\DoctrineExtension());
 	$compiler->addExtension("console", new Moes\Config\Extensions\ConsoleExtension());
-	$compiler->addExtension("repository", new Moes\Config\Extensions\RepositoryExtension());
+	$compiler->addExtension("model", new Moes\Config\Extensions\DummyExtension());
+	$compiler->addExtension("components", new Moes\Config\Extensions\DummyExtension());
 };
 
 $configurator->addParameters($params);

@@ -16,6 +16,7 @@ class ConsoleExtension extends Nette\Config\CompilerExtension {
 		$container->addDefinition($this->prefix('DBALRunSql'))
 				->setClass('Doctrine\DBAL\Tools\Console\Command\RunSqlCommand')
 				->addTag('consoleCommnad');
+
 		$container->addDefinition($this->prefix('DBALImport'))
 				->setClass('Doctrine\DBAL\Tools\Console\Command\ImportCommand')
 				->addTag('consoleCommand');

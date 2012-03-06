@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection,
     Nette;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="Moes\Security\IdentityRepository")
  * @Table(name="users")
  */
 class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity, \Serializable

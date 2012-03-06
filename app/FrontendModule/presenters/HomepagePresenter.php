@@ -7,7 +7,7 @@ class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		$this->template->articles = $this->context->repository->article->findPublished();
+		$this->template->articles = $this->context->model->articles->findPublished();
 	}
 
 }

@@ -1,0 +1,26 @@
+model:
+	services:
+		articles:
+			class: Model\ArticleRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Model\Article]
+
+		categories:
+			class: Moes\Doctrine\EntityRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Model\Category]
+
+		identities:
+			class: Moes\Security\IdentityRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Moes\Security\Identity]
+
+		pages:
+			class: Moes\Doctrine\EntityRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Model\Article]
+
+		roles:
+			class: Moes\Doctrine\EntityRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Moes\Security\Role]

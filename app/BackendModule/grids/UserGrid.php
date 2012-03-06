@@ -3,10 +3,16 @@
 namespace BackendModule;
 
 use Moes\Grid\Grid;
+use Moes\Security\IdentityRepository;
 
 class UserGrid extends Grid
 {
 
+	public function __construct(IdentityRepository $repository)
+	{
+		parent::__construct($repository);
+	}
+	
 	protected function init($presenter)
 	{
 		// paginator

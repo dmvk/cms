@@ -3,17 +3,16 @@
 namespace Moes\Security;
 
 use Nette\Security as NS;
-use Moes\Doctrine\EntityRepository;
 
 class PasswordAuthenticator implements NS\IAuthenticator
 {
 
 	/**
-	 * @var EntityRepository
+	 * @var IdentityRepository
 	 */
 	private $repository;
 
-	public function __construct(EntityRepository $repository)
+	public function __construct(IdentityRepository $repository)
 	{
 		$this->repository = $repository;
 	}

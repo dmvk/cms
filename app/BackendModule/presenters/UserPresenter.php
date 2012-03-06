@@ -12,7 +12,7 @@ class UserPresenter extends BasePresenter
 
 	private function loadUser($id)
 	{
-		$user = $this->context->repository->user->find($id);
+		$user = $this->context->model->identities->find($id);
 
 		if (!$user)
 			throw new Nette\Application\BadRequestException();
@@ -27,23 +27,33 @@ class UserPresenter extends BasePresenter
 
 	public function actionEdit($id)
 	{
-		$this["userForm"]->bind($this->loadUser($id));
+		$this["identityForm"]->bind($this->loadUser($id));
 		$this->view = "form";
 	}
 
-	public function createComponentUserForm()
+	public function handleDelete($id)
 	{
-		return $this->context->createUserForm();
+		$user = $this->loadUser($id);
+		
+		$this->context->model->identities->delete($user);
+		
+		$this->flashMessage("Uživatel byl odstraněn", "warning");
+		$this->redirect("this");
+	}
+
+	public function createComponentIdentityForm()
+	{
+		return $this->context->components->createIdentityForm();
 	}
 
 	public function createComponentUserGrid()
 	{
-		return $this->context->createUserGrid();
+		return $this->context->components->createUserGrid();
 	}
 	
 	public function createComponentChangePasswordForm()
 	{
-		return $this->context->createChangePasswordForm();
+		return $this->context->components->createChangePasswordForm();
 	}
 
 }

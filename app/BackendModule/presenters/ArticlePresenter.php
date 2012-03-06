@@ -12,7 +12,7 @@ class ArticlePresenter extends BasePresenter
 
 	private function loadArticle($id)
 	{
-		$article = $this->context->repository->article->find($id);
+		$article = $this->context->model->articles->find($id);
 
 		if (!$article)
 			throw new \Nette\Application\BadRequestException();
@@ -36,7 +36,7 @@ class ArticlePresenter extends BasePresenter
 	public function handleTrash($id)
 	{
 		$article = $this->loadArticle($id);
-		$this->context->repository->article->trash($article);
+		$this->context->model->articles->trash($article);
 
 		$this->logUpdateAction("Přesunut do koše: $article->title");
 		$this->flashMessage("Článek '$article->title' byl přesunut do koše", "error");
@@ -46,7 +46,7 @@ class ArticlePresenter extends BasePresenter
 	public function handlePublish($id)
 	{
 		$article = $this->loadArticle($id);
-		$this->context->repository->article->publish($article);
+		$this->context->model->articles->publish($article);
 
 		$this->logUpdateAction("Publikován: $article->title");
 		$this->flashMessage("Článek '$article->title' byl publikován.", "success");
@@ -56,7 +56,7 @@ class ArticlePresenter extends BasePresenter
 	public function handleRestore($id)
 	{
 		$article = $this->loadArticle($id);
-		$this->context->repository->article->draft($article);
+		$this->context->model->articles->draft($article);
 
 		$this->logUpdateAction("Obnoven: $article->title");
 		$this->flashMessage("Článek '$article->title' byl obnoven.", "success");
@@ -65,17 +65,17 @@ class ArticlePresenter extends BasePresenter
 
 	public function createComponentArticleForm()
 	{
-		return $this->context->createArticleForm();
+		return $this->context->components->createArticleForm();
 	}
 
 	public function createComponentArticleGrid()
 	{
-		return $this->context->createArticleGrid();
+		return $this->context->components->createArticleGrid();
 	}
 
 	public function createComponentArticleTrashGrid()
 	{
-		return $this->context->createArticleTrashGrid();
+		return $this->context->components->createArticleTrashGrid();
 	}
 
 }

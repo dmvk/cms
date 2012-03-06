@@ -2,45 +2,27 @@
 
 namespace Moes\Security;
 
-use Nette;
+use Moes\Doctrine\EntityRepository;
 
-class FacebookAuthenticator implements Nette\Security\IAuthenticator
+class FacebookAuthenticator
 {
 
 	private $repository;
 
-	public function __construct($repository)
+	public function __construct(IdentityRepository $repository)
 	{
 		$this->repository = $repository;
 	}
 
-	public function authenticate(array $fbUser)
+	public function authenticate(array $facebook)
 	{
-		$user = $this->repository->findOneByEmail($fbUser['email']);
+		$user = $this->repository->findOneByEmail($facebook["email"]);
 
-		if ($user) {
-			$this->updateMissingData($user, $fbUser);
-		} else {
-			$user = $this->register($fbUser);
+		if (!$user) {
+			$user = $this->repository->registerFacebookUser($facebook);
 		}
 
 		return $user;
-	}
-
-	public function register(array $me)
-	{
-		$user = $this->repository->createNew();
-		$user->email = $me['email'];
-
-		$this->updateMissingData($user, $me);
-
-		return $user;
-	}
-
-	public function updateMissingData($user, array $me)
-	{
-		$user->facebook = $me;
-		$this->repository->save($user);
 	}
 
 }

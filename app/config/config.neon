@@ -4,72 +4,30 @@ common:
 		# session.save_path: "%tempDir%/sessions"
 		# zlib.output_compression: yes
 
+	includes:
+		- components.neon
+		- model.neon
+
 	services:
 		authenticator:
-			class: Moes\Security\PasswordAuthenticator(@repository.user)
+			class: Moes\Security\PasswordAuthenticator
 
 		authorizator:
-			class: Moes\Security\Authorizator(@repository.role)
+			class: Moes\Security\Authorizator(@model.roles)
 
 		facebook:
 			class: Facebook([appId: "211051828990836", secret: "bdb352fa56e0201e1a699563c2f0a7f8"])
 
 		facebookAuthenticator:
-			class: Moes\Security\FacebookAuthenticator(@repository.user)
-			autowired: no
+			class: Moes\Security\FacebookAuthenticator
 
 		texy:
-			class: Moes\Texy\CachedTexy(@cacheStorage)
+			class: Moes\Texy\CachedTexy
 
-		nette.userStorage:
-			class: Moes\Security\UserStorage(@session, @repository.user)
-
-	factories:
-		articleForm:
-			class: BackendModule\ArticleForm(@repository.article, @user::getIdentity(), @repository.category::findAll())
-
-		categoryForm:
-			class: BackendModule\CategoryForm(@repository.category)
-
-		changePasswordForm:
-			class: BackendModule\ChangePasswordForm(@repository.user, @user::getIdentity())
-
-		pageForm:
-			class: BackendModule\PageForm(@repository.page, @user::getIdentity())
-
-		userForm:
-			class: BackendModule\UserForm(@repository.article, @repository.role::findAll())
-
-		# grids
-
-		articleGrid:
-			class: BackendModule\ArticleGrid(@repository.article)
-
-		articleTrashGrid:
-			class: BackendModule\ArticleTrashGrid(@repository.article)
-
-		categoryGrid:
-			class: BackendModule\CategoryGrid(@repository.category)
-
-		pageGrid:
-			class: BackendModule\PageGrid(@repository.page)
-
-		userGrid:
-			class: BackendModule\UserGrid(@repository.user)
-
-		#loaders
-		
-		backendCss:
-			class: BackendModule\BackendCss(@container)
-
-		backendJs:
-			class: BackendModule\BackendJs(@container)
-
-		frontendCss:
-			class: FrontendModule\FrontendCss(@container)
-
-		frontendJs:
-			class: FrontendModule\FrontendJs(@container)
+		logger:
+			class: Moes\Logger\Logger
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Moes\Logger\Action]
 
 	doctrine:
 		database:
@@ -85,11 +43,11 @@ common:
 			proxyDir: %tempDir%/proxies
 			proxyNamespace: Proxy
 
-#	facebook:
-#		appId: "211051828990836"
-#		secret: "bdb352fa56e0201e1a699563c2f0a7f8"
-
 	nette:
+		services:
+			userStorage:
+				class: Moes\Security\UserStorage
+
 		application:
 			catchExceptions: true
 			errorPresenter: Frontend:Error
@@ -103,4 +61,3 @@ development < common:
 	nette:
 		application:
 			catchExceptions: false
-console < common:

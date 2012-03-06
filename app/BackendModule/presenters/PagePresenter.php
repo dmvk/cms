@@ -10,9 +10,9 @@ use Doctrine\DBAL\LockMode;
 class PagePresenter extends BasePresenter
 {
 
-	private function loadPage($id, $lockMode = LockMode::NONE)
+	private function loadPage($id)
 	{
-		$page = $this->context->repository->page->find($id, $lockMode);
+		$page = $this->context->model->pages->find($id, $lockMode);
 
 		if (!$page)
 			throw new \Nette\Application\BadRequestException();
@@ -34,7 +34,7 @@ class PagePresenter extends BasePresenter
 
 	public function handleDelete($id)
 	{
-		$this->context->repository->page->delete($this->loadPage($id));
+		$this->context->model->pages->delete($this->loadPage($id));
 
 		$this->flashMessage('Stránka byla odstraněna');
 		$this->redirect('this');
@@ -42,12 +42,12 @@ class PagePresenter extends BasePresenter
 
 	protected function createComponentPageForm($name)
 	{
-		return $this->context->createPageForm();
+		return $this->context->components->createPageForm();
 	}
 
 	protected function createComponentPageGrid()
 	{
-		return $this->context->createPageGrid();
+		return $this->context->components->createPageGrid();
 	}
 
 }

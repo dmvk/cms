@@ -7,7 +7,7 @@ class PagePresenter extends BasePresenter
 
 	public function actionShow($slug)
 	{
-		$page = $this->context->repository->page->findOneBySlug($slug);
+		$page = $this->context->model->pages->findOneBySlug($slug);
 
 		if (!$page)
 			throw new \Nette\Application\BadRequestException();
