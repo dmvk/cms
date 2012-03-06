@@ -31,6 +31,9 @@ common:
 		categoryForm:
 			class: BackendModule\CategoryForm(@repository.category)
 
+		changePasswordForm:
+			class: BackendModule\ChangePasswordForm(@repository.user, @user::getIdentity())
+
 		pageForm:
 			class: BackendModule\PageForm(@repository.page, @user::getIdentity())
 

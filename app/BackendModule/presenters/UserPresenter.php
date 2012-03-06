@@ -40,5 +40,10 @@ class UserPresenter extends BasePresenter
 	{
 		return $this->context->createUserGrid();
 	}
+	
+	public function createComponentChangePasswordForm()
+	{
+		return $this->context->createChangePasswordForm();
+	}
 
 }
