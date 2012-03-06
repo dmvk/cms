@@ -85,6 +85,7 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 
 	public function setPassword($password, $hashFunction = "sha1")
 	{
+		throw new Nette\Application\ForbiddenRequestException; // just for DEMO purpose
 		$salt = md5(uniqid("", true));
 		$hash = $hashFunction($salt . $password);
 		$this->password = $salt . '$' . $hash . '$' . $hashFunction;
