@@ -56,11 +56,6 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 	 */
 	private $pages;
 
-	/**
-	 * @var bool
-	 */
-	private $loaded = TRUE;
-
 	public function __construct()
 	{
 		$this->articles = new ArrayCollection();
@@ -143,12 +138,11 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 	public function unserialize($serialized)
 	{
 		$this->id = unserialize($serialized);
-		$this->loaded = FALSE;
  	}
 
 	public function load(EntityRepository $repository)
 	{
-		return $this->loaded ? $this : $repository->find($this->id);
+		return $repository->find($this->id);
 	}
 
 }
