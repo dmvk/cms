@@ -21,6 +21,9 @@ class UserGrid extends Grid
 		// columns
 		$this->addColumn('id', '#');
 		$this->addColumn('email', 'E-mail');
+		$this->addColumn('role', 'Role')->setRenderer(function ($role) {
+			return $role->name;
+		});
 		$this->addColumn('facebook', 'Facebook')->setRenderer(function ($fb) {
 			return $fb !== NULL ? 'Ano' : 'Ne';
 		});
