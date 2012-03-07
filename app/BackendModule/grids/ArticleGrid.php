@@ -21,14 +21,14 @@ class ArticleGrid extends BaseArticleGrid
 
 		// publish button
 		$link =  function ($item) use ($presenter) {
-			return $item->isPublished() ? "#" : $presenter->link("publish!", $item->id);
+			return $item->isPublished() ? $presenter->link("unpublish!", $item->id) : $presenter->link("publish!", $item->id);
 		};
 		
-		$class = function ($item) use ($presenter) {
-			return $item->isPublished() ? "btn disabled" : "btn";
+		$label = function ($item) use ($presenter) {
+			return $item->isPublished() ? "Odpublikovat" : "Publikovat";
 		};
 
-		$this->addButton("publish", "Publikovat", $link, $class);
+		$this->addButton("publish", $label, $link, "btn");
 
 		// edit button
 		$link = function ($item) use ($presenter) {

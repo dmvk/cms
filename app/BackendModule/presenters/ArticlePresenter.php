@@ -53,6 +53,16 @@ class ArticlePresenter extends BasePresenter
 		$this->redirect("this");		
 	}
 
+	public function handleUnpublish($id)
+	{
+		$article = $this->loadArticle($id);
+		$this->context->model->articles->draft($article);
+
+		$this->logUpdateAction("Stažen: $article->title");
+		$this->flashMessage("Článek '$article->title' byl stažen.", "success");
+		$this->redirect("this");		
+	}
+
 	public function handleRestore($id)
 	{
 		$article = $this->loadArticle($id);
