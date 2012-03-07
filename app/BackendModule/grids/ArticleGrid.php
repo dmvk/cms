@@ -10,7 +10,7 @@ class ArticleGrid extends BaseArticleGrid
 	protected function init($presenter)
 	{
 		// paginator
-//		$this->paginator->itemsPerPage = 5;
+		$this->paginator->itemsPerPage = 10;
 
 		// všechny články, které nejsou v koši (published and draft)
 		$this->model->qb->add("orderBy", "a.createdAt DESC")

@@ -16,7 +16,7 @@ class UserGrid extends Grid
 	protected function init($presenter)
 	{
 		// paginator
-		$this->paginator->itemsPerPage = 5;
+		$this->paginator->itemsPerPage = 10;
 
 		// columns
 		$this->addColumn('id', '#');

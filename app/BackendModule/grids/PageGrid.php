@@ -10,7 +10,7 @@ class PageGrid extends Grid
 	protected function init($presenter)
 	{
 		// paginator
-		$this->paginator->itemsPerPage = 5;
+		$this->paginator->itemsPerPage = 10;
 
 		$this->model->qb->add('orderBy', 'a.createdAt DESC');
 
