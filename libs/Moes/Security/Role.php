@@ -7,7 +7,7 @@ use Moes\Doctrine\Entities\IdentifiedEntity;
 use Nette\Security\IRole;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="Moes\Security\RoleRepository")
  * @Table(name="acl_roles") 
  */
 class Role extends IdentifiedEntity implements IRole

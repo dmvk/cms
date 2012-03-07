@@ -3,16 +3,17 @@
 namespace BackendModule;
 
 use Moes\Security\IdentityRepository;
+use Moes\Security\RoleRepository;
 
 class IdentityForm extends \Moes\Doctrine\EntityForm
 {
 
 	private $roles;
 
-	public function __construct(IdentityRepository $repository, $roles)
+	public function __construct(IdentityRepository $identityRepository, RoleRepository $roleRepository)
 	{
-		parent::__construct($repository);
-		$this->roles = $roles;
+		parent::__construct($identityRepository);
+		$this->roles = $roleRepository->findAll();
 	}
 
 	protected function init()

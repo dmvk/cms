@@ -10,13 +10,13 @@ components:
 			class: BackendModule\ChangePasswordForm
 
 		loginForm:
-			class: BackendModule\LoginForm(@user)
+			class: BackendModule\LoginForm
 
 		pageForm:
 			class: BackendModule\PageForm(@model.pages, @user::getIdentity())
 
 		identityForm:
-			class: BackendModule\IdentityForm(@model.identities, @model.roles::findAll())
+			class: BackendModule\IdentityForm
 			
 		# grids
 

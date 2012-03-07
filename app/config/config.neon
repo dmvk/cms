@@ -13,7 +13,7 @@ common:
 			class: Moes\Security\PasswordAuthenticator
 
 		authorizator:
-			class: Moes\Security\Authorizator(@model.roles)
+			class: Moes\Security\Authorizator
 
 		facebook:
 			class: Facebook([appId: "211051828990836", secret: "bdb352fa56e0201e1a699563c2f0a7f8"])
