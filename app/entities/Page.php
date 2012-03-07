@@ -19,7 +19,7 @@ class Page extends IdentifiedEntity
 	private $title;
 
 	/**
-	 * @Column
+	 * @Column(unique=true)
 	 */
 	private $slug;
 

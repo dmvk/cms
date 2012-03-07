@@ -2,6 +2,7 @@
 
 namespace BackendModule;
 
+use Moes\Doctrine\Exceptions\DuplicateEntryException;
 use Moes\Security\Identity;
 
 class PageForm extends \Moes\Doctrine\EntityForm
@@ -48,8 +49,14 @@ class PageForm extends \Moes\Doctrine\EntityForm
 			$this->presenter->logCreateAction($entity->title);
 		}
 
-		$this->repository->save($entity);
-		$this->presenter->redirect('default');
+		// @todo nejak efektivne poresit aby se pri erroru nezobrazovali flashe
+
+		try {		
+			$this->repository->save($entity);
+			$this->presenter->redirect('default');
+		} catch (DuplicateEntryException $e) {
+			$form->addError("Stránka s adresou '$entity->slug' již existuje");
+		}
 	}
 
 	public function cancelClicked($button)

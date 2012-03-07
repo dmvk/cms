@@ -2,6 +2,7 @@
 
 namespace BackendModule;
 
+use Moes\Doctrine\Exceptions\DuplicateEntryException;
 use Moes\Security\Identity;
 
 class ArticleForm extends \Moes\Doctrine\EntityForm
@@ -59,8 +60,14 @@ class ArticleForm extends \Moes\Doctrine\EntityForm
 			$this->presenter->flashMessage("Článek byl úspěšně vytvořen", "success");
 		}
 
-		$this->repository->save($entity);
-		$this->presenter->redirect("default");
+		// @todo nejak efektivne poresit aby se pri erroru nezobrazovali flashe
+
+		try {		
+			$this->repository->save($entity);
+			$this->presenter->redirect('default');
+		} catch (DuplicateEntryException $e) {
+			$form->addError("Článek s adresou '$entity->slug' již existuje");
+		}
 	}
 
 	public function cancelClicked($button)

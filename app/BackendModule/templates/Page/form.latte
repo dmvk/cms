@@ -13,6 +13,11 @@
 
 <hr>
 
+<div n:foreach="$form->errors as $error" class="alert alert-error">
+	<a class="close" data-dismiss="alert">×</a>
+	{$error}
+</div>
+
 <div class="control-group">
 	{label title /}
 	<div class="controls">

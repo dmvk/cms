@@ -24,7 +24,7 @@ class ArticleRepository extends EntityRepository
 		$entity->setStatus(Article::TRASHED);
 		$this->save($entity);
 	}
-
+ 
 	public function findPublished()
 	{
 		$article = $this->getEntityName();
