@@ -5,7 +5,7 @@ namespace BackendModule;
 use Nette;
 
 /**
- * @Secured(role="admin")
+ * @Secured(role="administrator")
  */
 class UserPresenter extends BasePresenter
 {

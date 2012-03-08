@@ -5,7 +5,7 @@ namespace BackendModule;
 use Moes\Logger\ILogger;
 
 /**
- * @Secured(role="admin")
+ * @Secured(role="administrator")
  */
 class ArticlePresenter extends BasePresenter
 {

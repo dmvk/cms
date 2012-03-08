@@ -3,7 +3,7 @@
 namespace BackendModule;
 
 /**
- * @Secured(role="admin")
+ * @Secured(role="administrator")
  */
 class DashboardPresenter extends BasePresenter
 {

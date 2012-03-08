@@ -24,8 +24,3 @@ model:
 			class: Moes\Doctrine\EntityRepository
 			factory: @doctrine.entityManager::getRepository
 			arguments: [Model\Page]
-
-		roles:
-			class: Moes\Security\RoleRepository
-			factory: @doctrine.entityManager::getRepository
-			arguments: [Moes\Security\Role]

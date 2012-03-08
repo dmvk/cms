@@ -2,19 +2,40 @@
 
 namespace Moes\Security;
 
-use Moes\Doctrine\EntityRepository;
+use Nette\Config\Loader;
 use Nette\Security\Permission;
 
 class Authorizator extends Permission
 {
 
-	public function __construct(RoleRepository $repository)
+	public function __construct()
 	{
-		$roles = $repository->findAll();
+		$this->addRoles();
+		$this->addResources();
 
-		foreach ($roles as $role) {
-			$this->addRole($role->name);
-		}
+		// host
+		$this->allow("guest", array("article", "comment", "page"), "view");
+
+		// registrovany
+		$this->allow("registered", "comment", array("add", "vote"));		
+		
+		// administrator
+		$this->allow("administrator", "comment", "edit");
+	}
+
+	private function addRoles()
+	{
+		$this->addRole("guest");
+		$this->addRole("registered", "guest");
+		$this->addRole("moderator", "registered");
+		$this->addRole("administrator", "moderator");
+	}
+
+	private function addResources()
+	{
+		$this->addResource("article");
+		$this->addResource("comment");
+		$this->addResource("page");
 	}
 
 }

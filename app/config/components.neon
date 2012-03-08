@@ -52,4 +52,4 @@ components:
 		# others
 
 		comments:
-			class: FrontendModule\Comment\Control
+			class: FrontendModule\CommentControl

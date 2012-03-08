@@ -7,7 +7,7 @@ use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
 
 /**
- * @Secured(role="admin")
+ * @Secured(role="administrator")
  * 
  * @todo Dodelat + Refractoring :P
  */

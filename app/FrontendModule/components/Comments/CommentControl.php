@@ -1,6 +1,6 @@
 <?php
 
-namespace FrontendModule\Comment;
+namespace FrontendModule;
 
 use Nette;
 use Nette\Application\ForbiddenRequestException;
@@ -10,9 +10,12 @@ use Nette\Security\User;
 use Model\CommentGroup;
 use Model\CommentRepository;
 
-class Control extends UI\Control
+class CommentControl extends UI\Control
 {
 
+	/**
+	 * @var CommentRepository
+	 */
 	private $repository;
 
 	/**
@@ -50,48 +53,45 @@ class Control extends UI\Control
 
 	public function handleLike($id)
 	{
+		$this->checkPermission("vote");
 		$this->repository->like($this->loadComment($id));
 		$this->flashMessage("Děkujeme za Váš hlas.", "info");
-		$this->afterHandle();
+		$this->finishSignal();
 	}
 
 	public function handleDislike($id)
 	{
+		$this->checkPermission("vote");
 		$this->repository->dislike($this->loadComment($id));
 		$this->flashMessage("Děkujeme za Váš hlas.", "info");
-		$this->afterHandle();
+		$this->finishSignal();
 	}
 
 	public function handleDisapprove($id)
 	{
+		$this->checkPermission("edit");
 		$this->repository->disapprove($this->loadComment($id));
-		$this->afterHandle();
+		$this->finishSignal();
 	}
 
 	public function handleDelete($id)
 	{
+		$this->checkPermission("edit");
 		$this->repository->delete($this->loadComment($id));
 		$this->flashMessage("Komentář byl odstraněn.", "error");
-		$this->afterHandle();
-	}
-
-	private function afterHandle()
-	{
-		if ($this->presenter->isAjax()) {
-			$this->invalidateControl();
-		} else {
-			$this->redirect("this");
-		}
+		$this->finishSignal();
 	}
 
 	public function render()
 	{
 		if (!$this->group) {
-			throw new Nette\InvalidStateException("Comment group has to be set");
+			throw new Nette\InvalidStateException("You have to set CommentGroup first ...");
 		}
 
-		$this->template->allowed = $this->user->isLoggedIn();
-		$this->template->isAdmin = $this->user->isInRole("admin");
+		// permissions
+		$this->template->showAddForm = $this->user->isAllowed("comment", "add");
+		$this->template->showVoteButtons = $this->user->isAllowed("comment", "vote");
+		$this->template->showEditButtons = $this->user->isAllowed("comment", "edit");
 
 		$this->template->comments = $this->group->comments;
 
@@ -103,9 +103,7 @@ class Control extends UI\Control
 	{
 		$form = new Form();
 
-		$form->addTextArea('text', 'Text')
-			->setRequired();
-
+		$form->addTextArea('text', 'Text')->setRequired();
 		$form->addSubmit('save');
 
 		$form->onSuccess[] = callback($this, "processCommentForm");
@@ -115,18 +113,32 @@ class Control extends UI\Control
 
 	public function processCommentForm($form)
 	{
-		if (FALSE) {
-			throw new ForbiddenRequestException();
-		}
-		$comment = $this->repository->createNew((array) $form->values);
+		$this->checkPermission("add");
 
+		$comment = $this->repository->createNew((array) $form->values);
 		$comment->group = $this->group;
 		$comment->author = $this->user->identity;
 
 		$this->repository->save($comment);
 
 		$this->flashMessage('Děkujeme za Váś názor.', 'success');
-		$this->afterHandle();
+		$this->finishSignal();
+	}
+
+	private function checkPermission($privilege)
+	{
+		if (!$this->user->isAllowed("comment", $privilege)) {
+			throw new ForbiddenRequestException();
+		}
+	}
+
+	private function finishSignal()
+	{
+		if ($this->presenter->isAjax()) {
+			$this->invalidateControl();
+		} else {
+			$this->redirect("this");
+		}
 	}
 
 }

@@ -37,7 +37,7 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 	private $facebook;
 
 	/**
-	 * @ManyToOne(targetEntity="Role")
+	 * @Column
 	 */
 	private $role;
 
@@ -130,7 +130,7 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 
 	public function getRoles()
 	{
-		return array($this->role->name);
+		return array($this->role);
 	}
 
 	// Serializable interface

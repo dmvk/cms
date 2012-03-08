@@ -2,10 +2,8 @@
 
 namespace BackendModule;
 
-use Doctrine\DBAL\LockMode;
-
 /**
- * @Secured(role="admin")
+ * @Secured(role="administrator")
  */
 class PagePresenter extends BasePresenter
 {

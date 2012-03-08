@@ -2,18 +2,18 @@
 
 namespace BackendModule;
 
+use Moes\Security\Authorizator;
 use Moes\Security\IdentityRepository;
-use Moes\Security\RoleRepository;
 
 class IdentityForm extends \Moes\Doctrine\EntityForm
 {
 
 	private $roles;
 
-	public function __construct(IdentityRepository $identityRepository, RoleRepository $roleRepository)
+	public function __construct(IdentityRepository $identityRepository, Authorizator $authorizator)
 	{
 		parent::__construct($identityRepository);
-		$this->roles = $roleRepository->findAll();
+		$this->roles = $authorizator->roles;
 	}
 
 	protected function init()
@@ -22,7 +22,8 @@ class IdentityForm extends \Moes\Doctrine\EntityForm
 			->setRequired()
 			->addRule(self::EMAIL);
 
-		$this->addEntitySelect('role', 'Role', $this->roles)
+		$this->addSelect('role', 'Role')
+			->setItems($this->roles, FALSE)
 			->setRequired();
 
 		$this->addPassword("password", "Heslo")
@@ -44,10 +45,10 @@ class IdentityForm extends \Moes\Doctrine\EntityForm
 
 		unset($values["passwordre"]);
 		
-		if($values["password"] === NULL) {
+		if(empty($values["password"])) {
 			unset($values["password"]);
 		}
-			
+
 		if ($form->entity) {
 			// update
 			$entity = $form->entity;

@@ -21,12 +21,12 @@
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<span n:class="$comment->rating >= 0 ? positive : negative, btn, disabled">{$comment->rating}</span>
-				{if $allowed}
+				{if $showVoteButtons}
 				<a n:href="like!, $comment->id" rel="tooltip" title="Souhlasím!" class="ajax btn"><i class="icon-plus"></i></a>
 				<a n:href="dislike!, $comment->id" rel="tooltip" title="Nesouhlasím!" class="ajax btn"><i class="icon-minus"></i></a>
 				{/if}
 			</div>
-			<div n:if="$isAdmin" class="btn-group">
+			<div n:if="$showEditButtons" class="btn-group">
 				<a href="#" rel="tooltip" title="not implemented!" class="ajax btn"><i class="icon-comment"></i></a>
 				<a n:href="disapprove!, $comment->id" rel="tooltip" title="Označit jako nevhodné!" class="ajax btn"><i class="icon-ban-circle"></i></a>
 				<a n:href="delete!, $comment->id" rel="tooltip" title="Odstranit komentář!" class="ajax btn"><i class="icon-remove"></i></a>
@@ -43,7 +43,7 @@
 
 {/snippet}
 
-{if $allowed}
+{if $showAddForm}
 {form commentForm, class => "ajaxform"}
 <div class="control-group">
 	{label text /}
