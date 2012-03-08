@@ -75,4 +75,6 @@ $router[] = new Route("<slug>", array(
 $router[] = new Route("<presenter>/<action>[/<id>]", "Frontend:Homepage:default");
 
 // run
-//$container->application->run();
+if (!defined("TEST_DIR")) {
+	$container->application->run();
+}

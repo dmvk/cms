@@ -3,7 +3,6 @@
 // Load PHPUnit
 require_once 'PHPUnit/Autoload.php';
 
-// Load Moes and all neccessary libs
-//require __DIR__ . '/../app/bootstrap.php';
+define("TEST_DIR", __DIR__);
 
-// @todo dodelat testy
+require __DIR__ . '/../app/bootstrap.php';
