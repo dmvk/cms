@@ -1,0 +1,58 @@
+<h3>Komentáře</h3>
+
+{snippet}
+<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+	<a class="close" data-dismiss="alert">Ă—</a>
+	{$flash->message}
+</div>
+
+<div id="comments">
+	<div n:foreach="$comments as $comment" class="comment">
+		<div>
+			<p>
+				<b>{$comment->author->email}</b> napsal:
+			</p>
+		</div>
+		<div>
+			<p>
+				{$comment->text}
+			</p>
+		</div>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<span n:class="$comment->rating >= 0 ? positive : negative, btn, disabled">{$comment->rating}</span>
+				{if $allowed}
+				<a n:href="like!, $comment->id" rel="tooltip" title="Souhlasím!" class="ajax btn"><i class="icon-plus"></i></a>
+				<a n:href="dislike!, $comment->id" rel="tooltip" title="Nesouhlasím!" class="ajax btn"><i class="icon-minus"></i></a>
+				{/if}
+			</div>
+			<div n:if="$isAdmin" class="btn-group">
+				<a href="#" rel="tooltip" title="not implemented!" class="ajax btn"><i class="icon-comment"></i></a>
+				<a n:href="disapprove!, $comment->id" rel="tooltip" title="Označit jako nevhodné!" class="ajax btn"><i class="icon-ban-circle"></i></a>
+				<a n:href="delete!, $comment->id" rel="tooltip" title="Odstranit komentář!" class="ajax btn"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('#comments').tooltip({
+		selector: "a[rel=tooltip]"
+	})
+</script>
+
+{/snippet}
+
+{if $allowed}
+{form commentForm, class => "ajaxform"}
+<div class="control-group">
+	{label text /}
+	<div class="controls">
+		{input text}
+	</div>
+</div>
+<div class="form-actions">
+	{input save, class => "btn"}
+</div>
+{/form}
+{/if}

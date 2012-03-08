@@ -12,13 +12,15 @@ class ArticlePresenter extends BasePresenter
 		if (!$article)
 			throw new \Nette\Application\BadRequestException();
 
+		$this["comments"]->group = $article->commentGroup;
+		
 		$this->template->title = $article->title;
 		$this->template->article = $article;
 	}
 
 	public function createComponentComments()
 	{
-		return new Comment\Control($this->context->repository->article);
+		return $this->context->components->createComments();
 	}
 
 }

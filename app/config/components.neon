@@ -48,3 +48,8 @@ components:
 
 		frontendJs:
 			class: FrontendModule\FrontendJs
+
+		# others
+
+		comments:
+			class: FrontendModule\Comment\Control

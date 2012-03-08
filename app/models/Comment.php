@@ -5,7 +5,7 @@ namespace Model;
 use Moes\Doctrine\Entities\IdentifiedEntity;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="Model\CommentRepository")
  * @Table(name="comments")
  */
 class Comment extends IdentifiedEntity
@@ -15,6 +15,16 @@ class Comment extends IdentifiedEntity
 	 * @Column(type="text")
 	 */
 	private $text;
+
+	/**
+	 * @Column(type="integer")
+	 */
+	private $rating = 0;
+
+	/**
+	 * @Column(type="boolean")
+	 */
+	private $approved = TRUE;
 
 	/**
 	 * @ManyToOne(targetEntity="CommentGroup", inversedBy="comments")
@@ -36,19 +46,44 @@ class Comment extends IdentifiedEntity
 		$this->text = $text;
 	}
 
+	public function getRating()
+	{
+		return $this->rating;
+	}
+
+	public function setRating($rating)
+	{
+		$this->rating = $rating;
+	}
+
+	public function isApproved()
+	{
+		return $this->approved;
+	}
+	
+	public function setApproved($approved)
+	{
+		$this->approved = $approved;
+	}
+
 	public function getGroup()
 	{
 		return $this->group;
 	}
 
-	public function getUser()
+	public function setGroup(CommentGroup $group)
 	{
-		return $this->user;
+		$this->group = $group;
 	}
 
-	public function setUser($user)
+	public function getAuthor()
 	{
-		$this->user = $user;
+		return $this->author;
+	}
+
+	public function setAuthor($author)
+	{
+		$this->author = $author;
 	}
 
 }

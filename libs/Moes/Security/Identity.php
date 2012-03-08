@@ -52,6 +52,11 @@ class Identity extends Nette\Object implements IEntity, Nette\Security\IIdentity
 	private $comments;
 
 	/**
+	 * @ManyToMany(targetEntity="Model\Comment", mappedBy="author")
+	 */
+	private $likes;
+
+	/**
 	 * @OneToMany(targetEntity="Model\Page", mappedBy="author")
 	 */
 	private $pages;

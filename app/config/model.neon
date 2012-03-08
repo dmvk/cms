@@ -10,6 +10,11 @@ model:
 			factory: @doctrine.entityManager::getRepository
 			arguments: [Model\Category]
 
+		comments:
+			class: Model\CommentRepository
+			factory: @doctrine.entityManager::getRepository
+			arguments: [Model\Comment]
+
 		identities:
 			class: Moes\Security\IdentityRepository
 			factory: @doctrine.entityManager::getRepository

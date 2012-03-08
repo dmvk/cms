@@ -39,7 +39,7 @@ common:
 			driver: pdo_mysql
 
 		configuration:
-			entityDirs: ['%appDir%/entities', '%libsDir%/Moes']
+			entityDirs: ['%appDir%/models', '%libsDir%/Moes']
 			proxyDir: %tempDir%/proxies
 			proxyNamespace: Proxy
 

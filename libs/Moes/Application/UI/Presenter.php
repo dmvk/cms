@@ -15,6 +15,7 @@ class Presenter extends \Nette\Application\UI\Presenter
 	 */
 	public function checkRequirements($element)
 	{
+		dd($element);
 		$user = $this->user;
 
 		if ($element->hasAnnotation("Secured")) {

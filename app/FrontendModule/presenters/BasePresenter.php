@@ -2,7 +2,7 @@
 
 namespace FrontendModule;
 
-abstract class BasePresenter extends \Nette\Application\UI\Presenter
+abstract class BasePresenter extends \Moes\Application\UI\Presenter
 {
 
 	protected function beforeRender()

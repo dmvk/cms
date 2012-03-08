@@ -11,9 +11,6 @@ class BaseForm extends \Nette\Application\UI\Form
 	{
 		parent::__construct($parent, $name);
 
-//		if (method_exists($this, 'init'))
-//			$this->init();
-
 		if (method_exists($this, 'process'))
 			$this->onSuccess[] = callback($this, 'process');
 

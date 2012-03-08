@@ -63,13 +63,14 @@ class Article extends IdentifiedEntity
 	private $category;
 
 	/**
-	 * @OneToOne(targetEntity="CommentGroup")
+	 * @OneToOne(targetEntity="CommentGroup", cascade={"all"})
 	 */
 	private $commentGroup;
 
 	public function __construct()
 	{
 		$this->createdAt = new \DateTime();
+		$this->commentGroup = new CommentGroup();
 	}
 
 	public function getTitle()
