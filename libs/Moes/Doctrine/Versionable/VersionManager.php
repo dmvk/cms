@@ -18,17 +18,17 @@ class VersionManager
 	/**
 	 * Return all versions of an versionable entity.
 	 * 
-	 * @param Versionable $resource
+	 * @param IVersionable $resource
 	 * @return ResourceVersion[]
 	 */
-	public function getVersions(Versionable $resource)
+	public function getVersions(IVersionable $resource)
 	{
 		$versionableClassName = get_class($resource);
 		$versionableClass = $this->em->getClassMetadata($versionableClassName);
 		$resourceId = current($versionableClass->getIdentifierValues($resource));
 
 		// INDEX BY bug?
-		$query = $this->_em->createQuery(
+		$query = $this->em->createQuery(
 			"SELECT v FROM Moes\Doctrine\Versionable\ResourceVersion v INDEX BY v.version " .
 			"WHERE v.resourceName = ?1 AND v.resourceId = ?2 ORDER BY v.version DESC");
 		$query->setParameter(1, $versionableClassName);
@@ -41,11 +41,22 @@ class VersionManager
 		return $newVersions;
 	}
 
+	public function getVersion(IVersionable $resource, $version)
+	{
+		$versions = $this->getVersions($resource);
+
+		if (!isset($versions[$version])) {
+			throw Exception::unknownVersion($version);
+		}
+
+		return $versions[$version];
+	}
+
 	/**
-	 * @param Versionable $resource
+	 * @param IVersionable $resource
 	 * @param int $toVersionNum
 	 */
-	public function revert(Versionable $resource, $toVersionNum)
+	public function revert(IVersionable $resource, $toVersionNum)
 	{
 		$versions = $this->getVersions($resource);
 		if (!isset($versions[$toVersionNum])) {
@@ -54,13 +65,13 @@ class VersionManager
 		/* @var $version Entity\ResourceVersion */
 		$version = $versions[$toVersionNum];
 
-		$versionableClass = $this->_em->getClassMetadata(get_class($resource));
+		$versionableClass = $this->em->getClassMetadata(get_class($resource));
 		foreach ($version->getVersionedData() AS $k => $v) {
 			$versionableClass->reflFields[$k]->setValue($resource, $v);
 		}
 
 		if ($versionableClass->changeTrackingPolicy == ClassMetadata::CHANGETRACKING_DEFERRED_EXPLICIT) {
-			$this->_em->persist($resource);
+			$this->em->persist($resource);
 		}
 	}
 

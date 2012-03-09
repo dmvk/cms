@@ -1,0 +1,12 @@
+{block content}
+
+<h2>Diff <small>rozdíl mezí aktuální stránkou a zvolenou revizí</small></h2>
+
+<hr>
+
+{!$diff|nl2br}
+
+<hr>
+
+<a n:href="edit, $id" class="btn btn-large">Zpět</a>
+<a n:href="revert!, $id, $version" class="btn btn-info btn-large">Obnovit tuto revizi</a>

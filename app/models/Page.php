@@ -3,6 +3,7 @@
 namespace Model;
 
 use Moes\Doctrine\Entities\IdentifiedEntity;
+use Moes\Doctrine\Versionable\IVersionable;
 use Moes\Security\Identity;
 
 /**
@@ -10,7 +11,7 @@ use Moes\Security\Identity;
  * @Table(name="pages")
  * @HasLifecycleCallbacks
  */
-class Page extends IdentifiedEntity
+class Page extends IdentifiedEntity implements IVersionable
 {
 
 	/**
@@ -22,7 +23,7 @@ class Page extends IdentifiedEntity
 	 * @Column(unique=true)
 	 */
 	private $slug;
-
+ 
 	/**
 	 * @Column(type="text")
 	 */
@@ -37,7 +38,13 @@ class Page extends IdentifiedEntity
 	 * @Column(type="datetime", nullable=true)
 	 */
 	private $updatedAt;
-	
+
+	/**
+	 * @Version
+	 * @Column(type="integer") 
+	 */
+	private $version;
+
 	/**
 	 * @ManyToOne(targetEntity="Moes\Security\Identity", inversedBy="pages") 
 	 */
@@ -87,12 +94,12 @@ class Page extends IdentifiedEntity
 	{
 		return $this->updatedAt;
 	}
-	
+
 	public function getAuthor()
 	{
 		return $this->author;
 	}
-	
+
 	public function setAuthor(Identity $author)
 	{
 		$this->author = $author;

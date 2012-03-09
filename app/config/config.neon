@@ -43,6 +43,18 @@ common:
 			proxyDir: %tempDir%/proxies
 			proxyNamespace: Proxy
 
+		services:
+			defaultRepositoryListener:
+				class: Moes\Doctrine\Listeners\DefaultRepositoryListener
+				tags: [doctrineListener]
+
+			versionListener:
+				class: Moes\Doctrine\Versionable\VersionListener
+				tags: [doctrineListener]
+
+			versionManager:
+				class: Moes\Doctrine\Versionable\VersionManager
+
 	nette:
 		services:
 			userStorage:

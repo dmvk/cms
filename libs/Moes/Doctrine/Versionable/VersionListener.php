@@ -1,6 +1,6 @@
 <?php
 
-namespace DoctrineExtensions\Versionable;
+namespace Moes\Doctrine\Versionable;
 
 use Doctrine\Common\EventSubscriber,
     Doctrine\ORM\Events,
@@ -26,10 +26,10 @@ class VersionListener implements EventSubscriber
 		$uow = $em->getUnitOfWork();
 
 		/* @var $resourceClass Doctrine\ORM\Mapping\ClassMetadata */
-		$resourceClass = $em->getClassMetadata('DoctrineExtensions\Versionable\Entity\ResourceVersion');
+		$resourceClass = $em->getClassMetadata('Moes\Doctrine\Versionable\ResourceVersion');
 
 		foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-			if ($entity instanceof Versionable) {
+			if ($entity instanceof IVersionable) {
 				$entityClass = $em->getClassMetadata(get_class($entity));
 
 				if (!$entityClass->isVersioned) {
@@ -44,8 +44,8 @@ class VersionListener implements EventSubscriber
 				}
 
 				$oldValues = array_map(function($changeSetField) {
-						return $changeSetField[0];
-					}, $uow->getEntityChangeSet($entity));
+					return $changeSetField[0];
+				}, $uow->getEntityChangeSet($entity));
 
 				$entityVersion = $entityClass->reflFields[$entityClass->versionField]->getValue($entity);
 

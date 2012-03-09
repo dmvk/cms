@@ -50,11 +50,6 @@ class DoctrineExtension extends \Nette\Config\CompilerExtension
 		$builder->addDefinition($this->prefix("entityManager"))
 			->setClass("Doctrine\ORM\EntityManager")
 			->setFactory("Doctrine\ORM\EntityManager::create", array($config["database"]));
-
-		// listeners
-		$builder->addDefinition($this->prefix("defaultRepositoryListener"))
-			->setClass("Moes\Doctrine\Listeners\DefaultRepositoryListener")
-			->addTag("doctrineListener");
 	}
 
 	public static function createMetadataDriver($paths)

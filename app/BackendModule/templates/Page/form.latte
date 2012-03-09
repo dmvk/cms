@@ -37,3 +37,39 @@
 	</div>
 </div>
 {/form}
+
+{if isset($versions) && count($versions) > 0}
+<h2>Předchozí verze</h2>
+
+<hr>
+
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>
+				Číslo revize
+			</th>
+			<th>
+				Kdy?
+			</th>
+			<th>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr n:foreach="$versions as $version">
+			<td>
+				{$version->version}
+			</td>
+			<td>
+				{$version->snapshotDate|date:'j.n.Y - H:i:s'}
+			</td>
+			<td>
+				<a n:href="diff, $version->resourceId, $version->version" class="btn">Diff</a>
+				<a n:href="revert!, $version->resourceId, $version->version" class="btn btn-info">Obnovit</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+{/if}
